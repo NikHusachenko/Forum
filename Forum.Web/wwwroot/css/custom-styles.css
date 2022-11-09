@@ -1,0 +1,17 @@
+﻿.centered-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.centered-card {
+    width: 450px;
+}
+
+.card-header {
+    background-color: #fff;
+}
+.card-footer {
+    background-color: #fff;
+}

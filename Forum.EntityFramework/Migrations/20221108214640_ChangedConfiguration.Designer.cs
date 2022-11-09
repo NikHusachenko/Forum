@@ -4,6 +4,7 @@ using Forum.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Forum.EntityFramework.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221108214640_ChangedConfiguration")]
+    partial class ChangedConfiguration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,16 +138,6 @@ namespace Forum.EntityFramework.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CreatedOn = new DateTime(2022, 11, 8, 23, 47, 28, 636, DateTimeKind.Local).AddTicks(2491),
-                            Email = "nikgusachenko@gmail.com",
-                            Login = "Faraday",
-                            Password = "1111"
-                        });
                 });
 
             modelBuilder.Entity("Forum.Database.Entities.AnswerEntity", b =>

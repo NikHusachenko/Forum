@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forum.Database", "Forum.Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forum.EntityFramework", "Forum.EntityFramework\Forum.EntityFramework.csproj", "{F8863F1F-025C-4A5C-A135-898FD3F49570}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forum.Services", "Forum.Services\Forum.Services.csproj", "{9A59DAD5-5AB5-44CB-B217-6BC7F1C3E6A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forum.Common", "Forum.Common\Forum.Common.csproj", "{3D7BB8F3-A06B-4AD9-B40B-89EBBF3E0673}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{F8863F1F-025C-4A5C-A135-898FD3F49570}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8863F1F-025C-4A5C-A135-898FD3F49570}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8863F1F-025C-4A5C-A135-898FD3F49570}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A59DAD5-5AB5-44CB-B217-6BC7F1C3E6A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A59DAD5-5AB5-44CB-B217-6BC7F1C3E6A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A59DAD5-5AB5-44CB-B217-6BC7F1C3E6A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A59DAD5-5AB5-44CB-B217-6BC7F1C3E6A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D7BB8F3-A06B-4AD9-B40B-89EBBF3E0673}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D7BB8F3-A06B-4AD9-B40B-89EBBF3E0673}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D7BB8F3-A06B-4AD9-B40B-89EBBF3E0673}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D7BB8F3-A06B-4AD9-B40B-89EBBF3E0673}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,80 @@
+﻿<div class="centered-container">
+    <div class="card centered-card">
+        <div class="card-header">
+            <label>Enter into system</label>
+        </div>
+        <div class="card-body">
+            <div id="global-error-container" class="alert alert-danger d-none"></div>
+
+            <label>Login</label>
+            <input type="text" class="form-control" id="sign-in-login" />
+            <div id="login-error-container" class="alert alert-danger d-none"></div>
+
+            <br />
+
+            <label>Password</label>
+            <input type="password" class="form-control" id="sign-in-password" />
+            <div id="password-error-container" class="alert alert-danger d-none"></div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <input type="button" class="btn btn-outline-success" value="Login" id="sign-in-button" />
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div>
+                        <a href="#">Forget password</a> 
+                        |
+                        <a href="#">Sign up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+$('#sign-in-button').on('click', () => {
+    let data = {
+        Login: $('#sign-in-login').val(),
+        Password: $('#sign-in-password').val(),
+    }
+
+    let jsonData = JSON.stringify(data);
+
+    $('#login-error-container').addClass('d-none');
+    $('#password-error-container').addClass('d-none');
+    $('#global-error-container').addClass('d-none');
+
+    $.ajax({
+        url: '@Url.Action("SignInAjax", "Authentication")',
+        method: 'post',
+        data: jsonData,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: (response) => {
+            location.href = response.redirectUrl;
+        },
+        error: (response) => {
+            let jsonResponse = JSON.parse(response.responseText);
+
+            if (jsonResponse.hasOwnProperty("Login")) {
+                $('#login-error-container').removeClass('d-none');
+                document.getElementById('login-error-container').innerHTML = jsonResponse.Login;
+            }
+
+            if (jsonResponse.hasOwnProperty("Password")) {
+                $('#password-error-container').removeClass('d-none');
+                document.getElementById('password-error-container').innerHTML = jsonResponse.Password;
+            }
+
+            if (jsonResponse.hasOwnProperty("responseMessage")) {
+                $('#global-error-container').removeClass('d-none');
+                document.getElementById('global-error-container').innerHTML = jsonResponse.responseMessage;
+            }
+        },
+    });
+});
+</script>
+}

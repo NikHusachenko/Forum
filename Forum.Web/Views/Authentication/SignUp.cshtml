@@ -1,0 +1,91 @@
+﻿<div class="centered-container">
+    <div class="card centered-card">
+        <div class="card-header">
+            <label>Enter into system</label>
+        </div>
+        <div class="card-body">
+            <div id="global-error-container" class="alert alert-danger d-none"></div>
+
+            <label>Login</label>
+            <input type="text" class="form-control" id="sign-up-login" />
+            <div id="login-error-container" class="alert alert-danger d-none"></div>
+
+            <br />
+
+            <label>Email</label>
+            <input type="email" class="form-control" id="sign-up-email" />
+            <div id="email-error-container" class="alert alert-danger d-none"></div>
+
+            <br />
+
+            <label>Password</label>
+            <input type="password" class="form-control" id="sign-up-password" />
+            <div id="password-error-container" class="alert alert-danger d-none"></div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <input type="button" class="btn btn-outline-success" value="Login" id="sign-up-button" />
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="float-end">
+                        <a href="#">I have account</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+$('#sign-up-button').on('click', () => {
+    let data = {
+        Login: $('#sign-up-login').val(),
+        Email: $('#sign-up-email').val(),
+        Password: $('#sign-up-password').val(),
+    }
+
+    let jsonData = JSON.stringify(data);
+
+    $('#login-error-container').addClass('d-none');
+    $('#email-error-container').addClass('d-none');
+    $('#password-error-container').addClass('d-none');
+    $('#global-error-container').addClass('d-none');
+
+    $.ajax({
+        url: '@Url.Action("SignUpAjax", "Authentication")',
+        method: 'post',
+        data: jsonData,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: (response) => {
+            location.href = response.redirectUrl;
+        },
+        error: (response) => {
+            let responseJson = JSON.parse(response.responseText);
+
+            if (responseJson.hasOwnProperty("Login")) {
+                $('#login-error-container').removeClass('d-none');
+                document.getElementById('login-error-container').innerHTML = responseJson.Login;
+            }
+
+            if (responseJson.hasOwnProperty("Email")) {
+                $('#email-error-container').removeClass('d-none');
+                document.getElementById('email-error-container').innerHTML = responseJson.Email;
+            }
+
+            if (responseJson.hasOwnProperty("Password")) {
+                $('#password-error-container').removeClass('d-none');
+                document.getElementById('password-error-container').innerHTML = responseJson.Password
+            }
+
+            if (responseJson.hasOwnProperty("responseMessage")) {
+                $('#global-error-container').removeClass('d-none');
+                document.getElementById('global-error-container').innerHTML = responseJson.responseMessage;
+            }
+        },
+    })
+});
+</script>
+}

@@ -1,0 +1,62 @@
+﻿@using Forum.Services.CurrentUserContext
+@inject ICurrentUserContext currentUser
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="border-bottom: 1px solid black;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="@Url.Action("Index", "Home")">Forum</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <input id="havbar-search-textbox" class="form-control" type="search" placeholder="#">
+                </li>
+            </ul>
+
+            <div class="d-flex">
+                @if (currentUser.Id.HasValue)
+                {
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a id="navnar-login-label" class="nav-link active" aria-current="page" href="#">@currentUser.Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="navnar-signout-label" class="nav-link active" aria-current="page" href="@Url.Action("SignOut", "Authentication")">Sign out</a>
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a id="navnar-signin-button" class="nav-link active" aria-current="page" href="@Url.Action("SignIn", "Authentication")">Sign in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="navnar-signup-button" class="nav-link active" aria-current="page" href="@Url.Action("SignUp", "Authentication")">Sign up</a>
+                        </li>
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+$('#havbar-search-textbox').keypress((e) => {
+
+});
+$('#navnar-signin-button').mouseenter(() => { $('#navnar-signin-button').css('text-decoration', 'underline'); })
+$('#navnar-signin-button').mouseleave(() => { $('#navnar-signin-button').css('text-decoration', 'none'); })
+$('#navnar-signup-button').mouseenter(() => { $('#navnar-signup-button').css('text-decoration', 'underline'); })
+$('#navnar-signup-button').mouseleave(() => { $('#navnar-signup-button').css('text-decoration', 'none'); })
+
+if (document.getElementById('navnar-login-label')) {
+    $('#navnar-login-label').mouseenter(() => { $('#navnar-login-label').css('text-decoration', 'underline'); })
+    $('#navnar-login-label').mouseleave(() => { $('#navnar-login-label').css('text-decoration', 'none'); })
+    $('#navnar-signout-label').mouseenter(() => { $('#navnar-signout-label').css('text-decoration', 'underline'); })
+    $('#navnar-signout-label').mouseleave(() => { $('#navnar-signout-label').css('text-decoration', 'none'); })
+}
+</script>

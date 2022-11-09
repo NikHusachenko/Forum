@@ -14,8 +14,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Forum.Common\Forum.Common.csproj" />
     <ProjectReference Include="..\Forum.Database\Forum.Database.csproj" />
     <ProjectReference Include="..\Forum.EntityFramework\Forum.EntityFramework.csproj" />
+    <ProjectReference Include="..\Forum.Services\Forum.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

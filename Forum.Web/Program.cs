@@ -1,4 +1,11 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Forum.EntityFramework;
+using Forum.EntityFramework.Repositories;
+using Forum.Services.AuthenticationServices;
+using Forum.Services.AuthenticationServices.Models;
+using Forum.Services.CurrentUserContext;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +16,34 @@ builder.Services.AddControllersWithViews();
 var configuration = builder.Configuration;
 var services = builder.Services;
 
+services.AddControllersWithViews();
+
 services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.RequireAuthenticatedSignIn = false;
+})
+    .AddCookie(options =>
+    {
+        options.AccessDeniedPath = "/Authentication/SignIn";
+        options.LogoutPath = "/Home/Index";
+        options.LoginPath = "/Home/Index";
+        options.ExpireTimeSpan = TimeSpan.FromDays(3);
+        options.SlidingExpiration = true;
+    });
+
+services.AddFluentValidationAutoValidation()
+    .AddFluentValidationClientsideAdapters();
+
+services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+services.AddTransient<IAuthenticationService, AuthenticationService>();
+services.AddScoped<ICurrentUserContext, CurrentUserContext>();
+
+services.AddTransient<IValidator<SignInViewModel>, SignInViewModelValidator>();
+services.AddTransient<IValidator<SignUpViewModel>, SignUpViewModelValidator>();
 
 var app = builder.Build();
 
@@ -26,6 +60,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

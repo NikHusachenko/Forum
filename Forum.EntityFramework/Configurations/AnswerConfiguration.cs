@@ -8,6 +8,8 @@ namespace Forum.EntityFramework.Configurations
     {
         public void Configure(EntityTypeBuilder<AnswerEntity> builder)
         {
+            builder.ToTable("Answers").HasKey(answer => answer.Id);
+
             builder.Property(answer => answer.Body).HasMaxLength(1023);
 
             builder.HasMany<AnswerEntity>(answer => answer.Answers)
